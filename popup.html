@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Set Page Color Popup</title>
+    <style>
+      body {
+        overflow: hidden;
+        padding: 20px;
+        background: white;
+        width: 350px;
+      }
+      input, textarea {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    </style>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <form accept-charset="UTF-8" action="/links" class="pure-form pure-form-stacked" id="new_link_submission" method="post">
+      <label for="link_submission_url">Url</label>
+      <input autofocus="autofocus" class="pure-input-2-3" id="link_submission_url" name="link_submission[url]" required="required" type="text" />
+
+      <label for="link_submission_tags">Tags</label>
+      <input class="hidden" data-tags="[]" id="link_submission_tags" name="link_submission[tags]" type="text" />
+      <ul id="tags"></ul>
+
+      <label for="link_submission_description">Description</label>
+      <textarea class="pure-input-1" id="link_submission_description" name="link_submission[description]"></textarea>
+
+      <label for="link_submission_title">Title</label>
+      <input class="pure-input-1-2" disabled="disabled" id="link_submission_title" name="link_submission[title]" required="required" type="text" />
+
+      <label for="link_submission_content">Content</label>
+      <textarea class="pure-input-1 content" disabled="disabled" id="link_submission_content" name="link_submission[content]"></textarea>
+
+      <input class="pure-button pure-button-primary pure-input-1-4" name="commit" type="submit" value="Add" />
+    </form>
+  </body>
+</html>
