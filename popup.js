@@ -1,24 +1,58 @@
-document.addEventListener('DOMContentLoaded', function () {
-  var $link_submission_url = document.querySelector('#link_submission_url'),
-      $link_submission_title = document.querySelector('#link_submission_title'),
-      $link_submission_content = document.querySelector('#link_submission_content');
+BASE_URL = 'http://localhost:3000/api';
+var authToken = 'JJ-MJE6og2ZSzAaz84gR';
+
+$(function () {
+  var $linkSubmissionUrl = $('#link-submission-url'),
+      $linkSubmissionTitle = $('#link-submission-title'),
+      $linkSubmissionContent = $('#link-submission-content'),
+      $submitButton = $('input[type=submit]');
 
   chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT},
     function (tabs) {
-      var url = tabs[0].url,
-          xhr = new XMLHttpRequest();
+      var currentUrl = tabs[0].url;
 
-      $link_submission_url.value = url;
-      xhr.onreadystatechange = function () {
-        if ( xhr.readyState === 4 && xhr.status === 200 ) {
-          var link_submission = JSON.parse(xhr.responseText).link_submission;
-          $link_submission_title.value = link_submission.title;
-          $link_submission_content.value = link_submission.content;
+      $linkSubmissionUrl.val(currentUrl);
+      $.ajax({
+        type: 'GET',
+        url: BASE_URL + '/links/new',
+        headers: {
+          'Accept': 'application/json'
+        },
+        data: {
+          auth_token: authToken,
+          url: currentUrl
         }
-      };
-      xhr.open("GET", "http://localhost:3000/api/links/new?auth_token=JJ-MJE6og2ZSzAaz84gR&url=" + url, true);
-      xhr.setRequestHeader("Accept", "application/json");
-      xhr.send();
+      })
+      .done(function (data) {
+        var linkSubmission = data.link_submission;
+        $linkSubmissionTitle.val(linkSubmission.title).removeAttr('disabled');
+        $linkSubmissionContent.val(linkSubmission.content).removeAttr('disabled');
+        $submitButton.val('Add').removeAttr('disabled');
+      });
     }
   );
+
+  $submitButton.click(function (event) {
+    event.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: BASE_URL + '/links',
+      headers: {
+        'Accept': 'application/json'
+      },
+      data: {
+        auth_token: authToken,
+        link_submission: {
+          url: $linkSubmissionUrl.val(),
+          tags: $('#link-submission-tags').val(),
+          description: $('#link-submission-description').val(),
+          title: $linkSubmissionTitle.val(),
+          content: $linkSubmissionContent.val()
+        }
+      }
+    })
+    .done(function (data) {
+      $('body').html('<p class="success">Link successfully added.</p>');
+    });
+  });
 });

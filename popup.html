@@ -9,35 +9,42 @@
         background: white;
         width: 350px;
       }
+      label {
+        font-weight: bold;
+      }
       input, textarea {
         width: 100%;
         margin-bottom: 20px;
       }
-      #link_submission_content {
+      .success {
+        color: green;
+      }
+      #link-submission-content {
         height: 200px
       }
     </style>
+    <script src="jquery-2.1.1.min.js"></script>
     <script src="popup.js"></script>
   </head>
   <body>
-    <form accept-charset="UTF-8" action="/links" class="pure-form pure-form-stacked" id="new_link_submission" method="post">
-      <label for="link_submission_url">Url</label>
-      <input autofocus="autofocus" class="pure-input-2-3" id="link_submission_url" name="link_submission[url]" required="required" type="text" />
+    <form>
+      <label for="link-submission-url">Url</label>
+      <input autofocus="autofocus" id="link-submission-url" name="link-submission[url]" required="required" type="text" />
 
-      <label for="link_submission_tags">Tags</label>
-      <input class="hidden" data-tags="[]" id="link_submission_tags" name="link_submission[tags]" type="text" />
+      <label for="link-submission-tags">Tags</label>
+      <input data-tags="[]" id="link-submission-tags" name="link-submission[tags]" type="text" />
       <ul id="tags"></ul>
 
-      <label for="link_submission_description">Description</label>
-      <textarea class="pure-input-1" id="link_submission_description" name="link_submission[description]"></textarea>
+      <label for="link-submission-description">Description</label>
+      <textarea id="link-submission-description" name="link-submission[description]"></textarea>
 
-      <label for="link_submission_title">Title</label>
-      <input class="pure-input-1-2" disabled="disabled" id="link_submission_title" name="link_submission[title]" required="required" type="text" />
+      <label for="link-submission-title">Title</label>
+      <input id="link-submission-title" name="link-submission[title]" required="required" type="text" disabled />
 
-      <label for="link_submission_content">Content</label>
-      <textarea class="pure-input-1 content" disabled="disabled" id="link_submission_content" name="link_submission[content]"></textarea>
+      <label for="link-submission-content">Content</label>
+      <textarea id="link-submission-content" name="link-submission[content]" disabled></textarea>
 
-      <input class="pure-button pure-button-primary pure-input-1-4" name="commit" type="submit" value="Add" />
+      <input name="commit" type="submit" value="Retrieving content..." disabled />
     </form>
   </body>
 </html>
