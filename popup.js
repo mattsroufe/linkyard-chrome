@@ -1,4 +1,4 @@
-BASE_URL = 'http://localhost:3000';
+BASE_URL = 'http://linkyard.cloudapp.net';
 API_URL = BASE_URL + '/api';
 
 // TODO: remember and use token in case we switch away from cookie-based
@@ -47,10 +47,6 @@ $(function() {
         }
       })
       .done(function(data, status, xhr) {
-        // console.log(data);
-        // console.log(status);
-        // console.log(xhr);
-
         $spinner.hide();
         $submitForm.show();
 
@@ -67,6 +63,13 @@ $(function() {
             + '" />' + interaction.name + '</label>';
           $('#link-submission-interactions').append(html);
         });
+
+        html = '<label for="digests">Digests<select id="digest" name="digest">';
+        $.each(linkSubmission.digests, function(index, digest) {
+          html += '<option value="' + digest + '">' + digest + '</option>'
+        });
+        html += '</select></label>';
+        $('#link-submission-digests').append(html);
       });
     }
   );
@@ -94,12 +97,11 @@ $(function() {
              }
            });
 
+    link_submission['digest'] = $('#digest').val();
     data = JSON.stringify({
       //'auth_token': authToken,
       'link_submission': link_submission,
     });
-
-    // console.log(data);
 
     $.ajax({
       type: 'POST',
