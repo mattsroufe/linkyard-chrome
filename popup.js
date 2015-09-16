@@ -25,7 +25,6 @@ $(function() {
 
       $submitForm.hide();
 
-      $linkSubmissionUrl.val(currentUrl);
       $.ajax({
         type: 'GET',
         url: API_URL + '/links/new',
@@ -51,6 +50,7 @@ $(function() {
         $submitForm.show();
 
         var linkSubmission = data.link_submission;
+        $linkSubmissionUrl.val(linkSubmission.url).removeAttr('disabled');
         $linkSubmissionTitle.val(linkSubmission.title).removeAttr('disabled');
         $linkSubmissionContent.val(linkSubmission.content).removeAttr('disabled');
         $submitButton.val('Add').removeAttr('disabled');
