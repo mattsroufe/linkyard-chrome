@@ -7,12 +7,12 @@
         overflow: hidden;
         padding: 20px;
         background: white;
-        width: 350px;
+        width: 550px;
       }
       label {
         font-weight: bold;
       }
-      form#submit > input, textarea {
+      form#submit > input, textarea, select {
         width: 100%;
         margin-bottom: 10px;
       }
@@ -37,8 +37,6 @@
     <script src="popup.js"></script>
   </head>
   <body>
-    <h1>Linkyard</h1>
-
     <div id="spinner" class="initially-hidden">
       <img src="images/spinner.gif" />
     </div>
@@ -83,9 +81,11 @@
       <label for="link-submission-url">Url</label>
       <input id="link-submission-url" name="url" required="required" type="text" disabled />
 
+      <label for="digests">Digests</label>
+      <select id="link-submission-digest" name="digest"></select>
+
       <label for="link-submission-tags">Tags</label>
       <input data-tags="[]" id="link-submission-tags" name="tags" type="text" />
-      <ul id="tags"></ul>
 
       <label for="link-submission-description">Description</label>
       <textarea id="link-submission-description" name="description"></textarea>
@@ -98,7 +98,6 @@
 
       <div id="link-submission-interactions"></div>
 
-      <div id="link-submission-digests"></div>
 
       <br />
 

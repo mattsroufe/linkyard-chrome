@@ -9,6 +9,8 @@ $(function() {
   var $linkSubmissionUrl = $('#link-submission-url');
   var $linkSubmissionTitle = $('#link-submission-title');
   var $linkSubmissionContent = $('#link-submission-content');
+  var $linkSubmissionTags = $('#link-submission-tags');
+  var $linkSubmissionDigest = $('#link-submission-digest');
   var $submitForm = $('form#submit');
   var $submitButton = $('form#submit').find('input[type=submit]');
   var $loginOrSignup = $('#login-or-signup');
@@ -64,12 +66,13 @@ $(function() {
           $('#link-submission-interactions').append(html);
         });
 
-        html = '<label for="digests">Digests<select id="digest" name="digest">';
+        var html;
         $.each(linkSubmission.digests, function(index, digest) {
           html += '<option value="' + digest + '">' + digest + '</option>'
         });
-        html += '</select></label>';
-        $('#link-submission-digests').append(html);
+        $linkSubmissionDigest.append(html);
+
+        $linkSubmissionDigest.focus();
       });
     }
   );
@@ -83,21 +86,22 @@ $(function() {
     };
 
     $.each($('#submit').find(':input').serializeArray(),
-           function(index, input) {
-             name = input.name;
-             value = input.value;
+      function(index, input) {
+        name = input.name;
+        value = input.value;
 
-             if (name.indexOf('link_interactions_') == 0) {
-               if (value == 'on') {
-                 id = name.replace('link_interactions_', '');
-                 link_submission.link_interactions.push({ id: id, checked: '1' });
-               }
-             } else {
-               link_submission[name] = value;
-             }
-           });
+        if (name.indexOf('link_interactions_') == 0) {
+          if (value == 'on') {
+            id = name.replace('link_interactions_', '');
+            link_submission.link_interactions.push({ id: id, checked: '1' });
+          }
+        } else {
+          link_submission[name] = value;
+        }
+    });
 
-    link_submission['digest'] = $('#digest').val();
+    link_submission['digest'] = $linkSubmissionDigest.val();
+
     data = JSON.stringify({
       //'auth_token': authToken,
       'link_submission': link_submission,
