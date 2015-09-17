@@ -126,7 +126,7 @@ $(function() {
       }
     })
     .done(function(data) {
-      $('body').html('<p class="success">Link successfully added.</p>');
+      window.close();
     });
   });
 
