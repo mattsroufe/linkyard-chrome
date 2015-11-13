@@ -1,7 +1,7 @@
 {
   "name": "linkyard",
   "description": "Store for links to articles that is capable of exporting the links to different formats.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "icons": {
     "16": "images/icon16.png",
     "48": "images/icon48.png",
