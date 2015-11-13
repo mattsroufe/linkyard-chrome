@@ -1,4 +1,4 @@
-BASE_URL = 'http://linkyard.cloudapp.net';
+BASE_URL = 'http://programmingdigest.net';
 API_URL = BASE_URL + '/api';
 
 // TODO: remember and use token in case we switch away from cookie-based
